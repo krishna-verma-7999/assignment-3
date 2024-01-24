@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import Header from "./components/header";
+import Form from "./components/form";
+import { useAuth } from "./hooks/use-auth";
+import Home from "./components/home";
 
 function App() {
+  const { authenticated, logoutHandler } = useAuth();
+
+  // if (authenticated === false) {
+  //   return <div>Loading...</div>;
+  // }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div style={{ height: "100%" }}>
+      <Header isAuthorized={authenticated} logoutHandler={logoutHandler} />
+
+      {authenticated ? <Home /> : <Form />}
     </div>
   );
 }
